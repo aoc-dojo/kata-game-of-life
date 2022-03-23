@@ -1,8 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Life", "src\Life\Life.csproj", "{698730FD-5A0A-4C3D-B348-119E7028C6EB}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Life", "src\Life\Life.csproj", "{698730FD-5A0A-4C3D-B348-119E7028C6EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeTest", "src\LifeTest\LifeTest.csproj", "{F180F49F-F34D-46CB-9B30-08E7426E40B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Life.Tests", "src\Life.Tests\Life.Tests.csproj", "{F180F49F-F34D-46CB-9B30-08E7426E40B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +21,11 @@ Global
 		{F180F49F-F34D-46CB-9B30-08E7426E40B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F180F49F-F34D-46CB-9B30-08E7426E40B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F180F49F-F34D-46CB-9B30-08E7426E40B9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {49F66749-B865-4A19-B5E0-CFE47FE9A63A}
 	EndGlobalSection
 EndGlobal

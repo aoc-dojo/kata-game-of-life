@@ -1,7 +1,7 @@
 using Life;
 using Xunit;
 
-namespace LifeTest;
+namespace Life.Tests;
 
 public class BoardTest
 {
