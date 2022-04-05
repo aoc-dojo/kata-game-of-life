@@ -11,11 +11,18 @@ class TestBoards {
     public static readonly int[,] Board3x3Evolved1 =
     {
         {1, 0, 1},
-        {1, 0, 1},
-        {0, 0, 0},
+        {1, 0, 0},
+        {0, 0, 1},
     };
 
     public static readonly int[,] Board3x3Evolved2 =
+    {
+        {0, 1, 0},
+        {0, 0, 0},
+        {0, 0, 0},
+    };
+
+        public static readonly int[,] Board3x3Evolved3 =
     {
         {0, 0, 0},
         {0, 0, 0},
