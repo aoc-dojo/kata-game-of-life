@@ -1,50 +1,22 @@
 using Life;
 using Xunit;
+using Life.Tests.TestModels;
 
 namespace Life.Tests;
 
 public class BoardTest
 {
-    private static readonly int[,] TestData =
-    {
-        {1, 1, 1, 1, 0, 1, 1, 0, 0, 0},
-        {1, 1, 1, 1, 0, 1, 1, 0, 0, 0},
-        {0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
-        {0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 1, 1, 0, 0, 0},
-        {0, 0, 0, 0, 0, 1, 1, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 1, 0, 0, 0, 0, 0, 0, 1, 1},
-        {1, 1, 0, 0, 0, 0, 0, 0, 1, 1}
-    };
-
-    private static readonly int[,] ExpectedData =
-    {
-        {1, 0, 0, 1, 0, 1, 1, 0, 0, 0},
-        {1, 0, 0, 0, 0, 1, 1, 0, 0, 0},
-        {1, 0, 0, 1, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 1, 1, 0, 0, 0},
-        {0, 0, 0, 0, 0, 1, 1, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {1, 1, 0, 0, 0, 0, 0, 0, 1, 1},
-        {1, 1, 0, 0, 0, 0, 0, 0, 1, 1}
-    };
-
     [Fact]
-    public void TestConstructor()
+    public void Should_Initialize_Board()
     {
-        var board = new Board(TestData);
-        Assert.True(board.Rows == 10);
-        Assert.True(board.Columns == 10);
-        
-        Assert.Equal(TestData, board.State);
+        var board = new Board(TestBoards.Board3x3);
+        Assert.True(board.Rows == 3);
+        Assert.True(board.Columns == 3);
+        Assert.Equal(TestBoards.Board3x3, board.State);
     }
     
     [Fact]
-    public void TestRandom()
+    public void Should_Initialize_Random_Board()
     {
         var board = Board.Random();
         Assert.True(board.Rows == 10);
@@ -56,38 +28,38 @@ public class BoardTest
     }
 
     [Fact]
-    public void TestRandomWithZeroSize()
+    public void Random_Board_Initialized_With_0_Size_Should_Throw()
     {
         Assert.Throws<ArgumentException>(() => Board.Random(0, 0));
     }
 
     [Fact]
-    public void TestConstructorWithNullInitialState()
+    public void Board_Initialized_With_Null_Should_Throw()
     {
         Assert.Throws<ArgumentNullException>(() => new Board(null!));
     }
 
     [Fact]
-    public void TestConstructorWithInvalidValues()
+    public void Invalid_Initial_Board_Should_Throw()
     {
         int[,] arr = { { 0, 0, 0, 0, 1 }, {2, 0, 1, -1, 3} };
         Assert.Throws<ArgumentException>(() => new Board(arr));
     }
 
     [Fact]
-    public void TestConstructorWithInvalidSize()
+    public void Initial_Board_Invalid_Size_Should_Throw()
     {
         var state = new int[0,0];
         Assert.Throws<ArgumentException>(() => new Board(state));
     }
 
     [Fact]
-    public void TestEvolve()
+    public void Board_Should_Evolve_To_Correct_State()
     {
-        var board = new Board(TestData);
+        var board = new Board(TestBoards.Board3x3);
         board.Evolve();
         
         board.Print();
-        Assert.Equal(ExpectedData, board.State);
+        Assert.Equal(TestBoards.Board3x3Evolved1, board.State);
     }
 }
