@@ -23,47 +23,11 @@ public class Board
         throw new NotImplementedException();
     }
 
-    private int NextStateForCell(int i, int j)
-    {
-        throw new NotImplementedException();
-    }
-
-    private int CalculateLivingNeighbors(int i, int j)
-    {
-        throw new NotImplementedException();
-    }
-
-    private bool IsValid(int[,] arr)
-    {
-        throw new NotImplementedException();
-    }
-
-    protected bool Equals(Board other)
-    {
-        throw new NotImplementedException();
-    }
-
-    public override bool Equals(object? obj)
-    {
-        throw new NotImplementedException();
-    }
-
-    public override int GetHashCode()
-    {
-        throw new NotImplementedException();
-    }
-
     public override string ToString()
     {
-        throw new NotImplementedException();
+        return $"{nameof(State)}: {State}, {nameof(Rows)}: {Rows}, {nameof(Columns)}: {Columns}";
     }
 
-    /// <summary>
-    /// Creates a Board with a random state.
-    /// </summary>
-    /// <param name="rows"></param>
-    /// <param name="columns"></param>
-    /// <returns></returns>
     public static Board Random(int rows = DefaultRows, int columns = DefaultColumns)
     {
         throw new NotImplementedException();
