@@ -64,3 +64,9 @@ A helper static method that returns a board initialized from a random state.
 ### Implement `Board.Evolve`
 
 The Game of Life logic is implemented in the `Evolve` method. Calling the `Evolve` method should advance `State` to the next generation, following the rules described in the introduction. The method will check each cell to see if it will live or die in the next generation based on the number of neighbours.
+
+### Enable more board scenarios
+
+Once you have things working well for the first scenario, you can go to the `src/Life.Tests/TestModels/TestBoards.cs` to enable more scenarios.
+
+In the method `BoardScenarios`, there are two more 3x3 boards you can enable. There is also one 10x10 scenario to test at a higher dimension.

@@ -1,6 +1,15 @@
 namespace Life.Tests.TestModels;
 
-class TestBoards {
+public static class TestBoards
+{
+    public static IEnumerable<object[]> BoardScenarios()
+    {
+        yield return new object[] { 3, Board3x3, Board3x3Evolved1 };
+        // yield return new object[] { 3, Board3x3Evolved1, Board3x3Evolved2 };
+        // yield return new object[] { 3, Board3x3Evolved2, Board3x3Evolved3 };
+        // yield return new object[] { 10, Board10x10, Board10x10Evolved };
+    }
+
     public static readonly int[,] Board3x3 =
     {
         {1, 1, 1},

@@ -6,13 +6,14 @@ namespace Life.Tests;
 
 public class BoardTest
 {
-    [Fact]
-    public void Should_Initialize_Board()
+    [Theory]
+    [MemberData(nameof(TestBoards.BoardScenarios), MemberType = typeof(TestBoards))]
+    public void Should_Initialize_Board(int size, int[,] initialState, int[,] evolvedState)
     {
-        var board = new Board(TestBoards.Board3x3);
-        Assert.True(board.Rows == 3);
-        Assert.True(board.Columns == 3);
-        Assert.Equal(TestBoards.Board3x3, board.State);
+        var board = new Board(initialState);
+        Assert.True(board.Rows == size);
+        Assert.True(board.Columns == size);
+        Assert.Equal(initialState, board.State);
     }
 
     [Fact]
@@ -53,13 +54,14 @@ public class BoardTest
         Assert.True(customSizedBoard.Columns == 5);
     }
 
-    [Fact]
-    public void Board_Should_Evolve_To_Correct_State()
+    [Theory]
+    [MemberData(nameof(TestBoards.BoardScenarios), MemberType = typeof(TestBoards))]
+    public void Board_Should_Evolve_To_Correct_State(int size, int[,] initialState, int[,] evolvedState)
     {
-        var board = new Board(TestBoards.Board3x3);
+        var board = new Board(initialState);
         board.Evolve();
         
         board.Print();
-        Assert.Equal(TestBoards.Board3x3Evolved1, board.State);
+        Assert.Equal(evolvedState, board.State);
     }
 }
