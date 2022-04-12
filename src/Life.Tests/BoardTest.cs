@@ -14,29 +14,17 @@ public class BoardTest
         Assert.True(board.Columns == 3);
         Assert.Equal(TestBoards.Board3x3, board.State);
     }
-    
+
     [Fact]
-    public void Should_Initialize_Random_Board()
+    public void Board_Initialized_With_Null_Should_Throw()
     {
-        var board = Board.Random();
-        Assert.True(board.Rows == 10);
-        Assert.True(board.Columns == 10);
-        
-        var customSizedBoard = Board.Random(5, 5);
-        Assert.True(customSizedBoard.Rows == 5);
-        Assert.True(customSizedBoard.Columns == 5);
+        Assert.Throws<ArgumentNullException>(() => new Board(null!));
     }
 
     [Fact]
     public void Random_Board_Initialized_With_0_Size_Should_Throw()
     {
         Assert.Throws<ArgumentException>(() => Board.Random(0, 0));
-    }
-
-    [Fact]
-    public void Board_Initialized_With_Null_Should_Throw()
-    {
-        Assert.Throws<ArgumentNullException>(() => new Board(null!));
     }
 
     [Fact]
@@ -51,6 +39,18 @@ public class BoardTest
     {
         var state = new int[0,0];
         Assert.Throws<ArgumentException>(() => new Board(state));
+    }
+    
+    [Fact]
+    public void Should_Initialize_Random_Board()
+    {
+        var board = Board.Random();
+        Assert.True(board.Rows == 10);
+        Assert.True(board.Columns == 10);
+        
+        var customSizedBoard = Board.Random(5, 5);
+        Assert.True(customSizedBoard.Rows == 5);
+        Assert.True(customSizedBoard.Columns == 5);
     }
 
     [Fact]
