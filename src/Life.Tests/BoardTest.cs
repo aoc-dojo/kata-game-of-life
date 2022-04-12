@@ -41,7 +41,7 @@ public class BoardTest
         var state = new int[0,0];
         Assert.Throws<ArgumentException>(() => new Board(state));
     }
-    
+
     [Fact]
     public void Should_Initialize_Random_Board()
     {
