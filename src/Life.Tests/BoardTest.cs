@@ -6,37 +6,26 @@ namespace Life.Tests;
 
 public class BoardTest
 {
-    [Fact]
-    public void Should_Initialize_Board()
+    [Theory]
+    [MemberData(nameof(TestBoards.BoardScenarios), MemberType = typeof(TestBoards))]
+    public void Should_Initialize_Board(int size, int[,] initialState, int[,] evolvedState)
     {
-        var board = new Board(TestBoards.Board3x3);
-        Assert.True(board.Rows == 3);
-        Assert.True(board.Columns == 3);
-        Assert.Equal(TestBoards.Board3x3, board.State);
-    }
-    
-    [Fact]
-    public void Should_Initialize_Random_Board()
-    {
-        var board = Board.Random();
-        Assert.True(board.Rows == 10);
-        Assert.True(board.Columns == 10);
-        
-        var customSizedBoard = Board.Random(5, 5);
-        Assert.True(customSizedBoard.Rows == 5);
-        Assert.True(customSizedBoard.Columns == 5);
-    }
-
-    [Fact]
-    public void Random_Board_Initialized_With_0_Size_Should_Throw()
-    {
-        Assert.Throws<ArgumentException>(() => Board.Random(0, 0));
+        var board = new Board(initialState);
+        Assert.True(board.Rows == size);
+        Assert.True(board.Columns == size);
+        Assert.Equal(initialState, board.State);
     }
 
     [Fact]
     public void Board_Initialized_With_Null_Should_Throw()
     {
         Assert.Throws<ArgumentNullException>(() => new Board(null!));
+    }
+
+    [Fact]
+    public void Random_Board_Initialized_With_0_Size_Should_Throw()
+    {
+        Assert.Throws<ArgumentException>(() => Board.Random(0, 0));
     }
 
     [Fact]
@@ -54,12 +43,25 @@ public class BoardTest
     }
 
     [Fact]
-    public void Board_Should_Evolve_To_Correct_State()
+    public void Should_Initialize_Random_Board()
     {
-        var board = new Board(TestBoards.Board3x3);
+        var board = Board.Random();
+        Assert.True(board.Rows == 10);
+        Assert.True(board.Columns == 10);
+        
+        var customSizedBoard = Board.Random(5, 5);
+        Assert.True(customSizedBoard.Rows == 5);
+        Assert.True(customSizedBoard.Columns == 5);
+    }
+
+    [Theory]
+    [MemberData(nameof(TestBoards.BoardScenarios), MemberType = typeof(TestBoards))]
+    public void Board_Should_Evolve_To_Correct_State(int size, int[,] initialState, int[,] evolvedState)
+    {
+        var board = new Board(initialState);
         board.Evolve();
         
         board.Print();
-        Assert.Equal(TestBoards.Board3x3Evolved1, board.State);
+        Assert.Equal(evolvedState, board.State);
     }
 }
