@@ -35,46 +35,53 @@ public class Board
 
     public void Evolve()
     {
+        var newState = new int[Rows, Columns];
         for (int i = 0; i < Rows; i++)
-            for (int j = 0; j < Columns; j++) 
-            {
-                var numberOfNeighbours = GetNumberOfAliveNeighbours(i,j);
+        for (int j = 0; j < Columns; j++) 
+        {
+            var numberOfNeighbours = GetNumberOfAliveNeighbours(i, j);
 
-
-                // If 0 or 1 neighbours, die
-                switch (numberOfNeighbours) {
-                    case 0:
-                    case 1:
-                        State[i,j] = 0;
-                        break;
-                    default: throw new Exception();
-                }
-                
-                // If 2 neighbours stay as is
-
-                // If 3 neighbours, procreate or stay alive
-
-                // If 4 or greater neighbours, die
-
+            switch (numberOfNeighbours) {
+                case 2:
+                    newState[i, j] = State[i, j];
+                    break;
+                case 3:
+                    newState[i, j] = CellAlive;
+                    break;
+                default:
+                    newState[i, j] = CellDead;
+                    break;
             }
-        throw new NotImplementedException();
+        }
+
+        State = newState;
     }
 
     private int GetNumberOfAliveNeighbours(int row, int column) {
         int numberOfNeighbours = 0;
-        int[] rowBoundaries = new int[]{-1,0,1};
-        int[] columnBoundaries = new int[]{-1,0,1};
 
-        for (int i = 0; i < rowBoundaries.Length; i++)
-            for (int j = 0; j < columnBoundaries.Length; j++) {
-                var rowCheckedCoord = row + rowBoundaries[i];
-                var columnCheckedCoord = column + columnBoundaries[j];
+        var rowBoundaries = new [] {-1, 0, 1};
+        var columnBoundaries = new [] {-1, 0, 1};
 
-                if (rowCheckedCoord < 0 || columnCheckedCoord < 0 || (rowCheckedCoord == row && columnCheckedCoord == column))
-                    continue;
-
-                numberOfNeighbours += State[rowCheckedCoord, columnCheckedCoord];
+        foreach(var rowIndexModifier in rowBoundaries)
+        foreach(var colIndexModifier in columnBoundaries)
+        {
+            var rowToSearch = row + rowIndexModifier;
+            if (rowToSearch < 0 || rowToSearch >= Rows)
+            {
+                continue;
             }
+
+            var colToSearch = column + colIndexModifier;
+            var isSameItem = colToSearch == column && rowToSearch == row;
+
+            if (colToSearch < 0 || colToSearch >= Columns || isSameItem)
+            {
+                continue;
+            }
+
+            numberOfNeighbours += State[rowToSearch, colToSearch];
+        }
 
         return numberOfNeighbours;
     }
