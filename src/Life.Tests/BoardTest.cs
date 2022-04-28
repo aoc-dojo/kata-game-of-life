@@ -13,10 +13,13 @@ public class Constructor
         Assert.Throws<ArgumentNullException>(() => new Board(null!));
     }
 
-    [Fact(DisplayName = "The board initial state should be bigger than a 0x0 matrix.")]
-    public void ZeroSizedInitialState_ThrowsArgumentException()
+    [Theory(DisplayName = "None of the board initial state dimensions can be 0.")]
+    [InlineData(0, 0)]
+    [InlineData(1, 0)]
+    [InlineData(0, 1)]
+    public void ZeroSizedRowInitialState_ThrowsArgumentException(int rowNbr, int colNbr)
     {
-        var state = new int[0,0];
+        var state = new int[rowNbr, colNbr];
         Assert.Throws<ArgumentException>(() => new Board(state));
     }
 
@@ -32,9 +35,9 @@ public class Constructor
     public void ValidInitialState_ShouldInitializeBoardState(int size, int[,] initialState, int[,] evolvedState)
     {
         var board = new Board(initialState);
+        Assert.Equal(initialState, board.State);
         Assert.True(board.Rows == size);
         Assert.True(board.Columns == size);
-        Assert.Equal(initialState, board.State);
     }
 }
 
@@ -42,18 +45,9 @@ public class Constructor
 public class Random
 {
     [Fact(DisplayName = "Can only initialize a board bigger than 0x0")]
-    public void ZeroAndZero_ThrowsArgumentExcpetion()
+    public void ZeroAndZero_ThrowsArgumentException()
     {
         Assert.Throws<ArgumentException>(() => Board.Random(0, 0));
-    }
-
-    [Fact(DisplayName = "When no size is defined, initializes a 10x10 board")]
-    public void NoArguments_ReturnsA10x10Board()
-    {
-        var board = Board.Random();
-
-        Assert.True(board.Rows == 10);
-        Assert.True(board.Columns == 10);
     }
 
     [Fact(DisplayName = "When a size is passed in, initializes a board of that size")]
@@ -63,6 +57,15 @@ public class Random
 
         Assert.True(customSizedBoard.Rows == 5);
         Assert.True(customSizedBoard.Columns == 5);
+    }
+
+    [Fact(DisplayName = "When no size is defined, initializes a 10x10 board")]
+    public void NoArguments_ReturnsA10x10Board()
+    {
+        var board = Board.Random();
+
+        Assert.True(board.Rows == 10);
+        Assert.True(board.Columns == 10);
     }
 }
 
