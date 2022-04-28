@@ -7,6 +7,9 @@ public class Board
     private const int DefaultRows = 10;
     private const int DefaultColumns = 10;
 
+    private const int NothingChanges = 2;
+    private const int BringMeToLife = 3;
+
     private const int RowDimensionIndex = 0;
     private const int ColDimensionIndex = 1;
     
@@ -41,17 +44,12 @@ public class Board
         {
             var numberOfNeighbours = GetNumberOfAliveNeighbours(i, j);
 
-            switch (numberOfNeighbours) {
-                case 2:
-                    newState[i, j] = State[i, j];
-                    break;
-                case 3:
-                    newState[i, j] = CellAlive;
-                    break;
-                default:
-                    newState[i, j] = CellDead;
-                    break;
-            }
+            newState[i, j] = numberOfNeighbours switch
+            {
+                NothingChanges => State[i, j],
+                BringMeToLife => CellAlive,
+                _ => CellDead
+            };
         }
 
         State = newState;
@@ -60,22 +58,14 @@ public class Board
     private int GetNumberOfAliveNeighbours(int row, int column) {
         int numberOfNeighbours = 0;
 
-        var rowBoundaries = new [] {-1, 0, 1};
-        var columnBoundaries = new [] {-1, 0, 1};
-
-        foreach(var rowIndexModifier in rowBoundaries)
-        foreach(var colIndexModifier in columnBoundaries)
+        for(var rowToSearch = row - 1; rowToSearch <= row + 1; rowToSearch++)
+        for(var colToSearch = column - 1; colToSearch <= column + 1; colToSearch++)
         {
-            var rowToSearch = row + rowIndexModifier;
-            if (rowToSearch < 0 || rowToSearch >= Rows)
-            {
-                continue;
-            }
-
-            var colToSearch = column + colIndexModifier;
             var isSameItem = colToSearch == column && rowToSearch == row;
 
-            if (colToSearch < 0 || colToSearch >= Columns || isSameItem)
+            if (IsRowOutOfBounds(rowToSearch) ||
+                IsColumnOutOfBounds(colToSearch) ||
+                isSameItem)
             {
                 continue;
             }
@@ -103,4 +93,7 @@ public class Board
     private bool CellIsValid(int cell) {
         return cell is CellAlive or CellDead;
     }
+
+    private bool IsRowOutOfBounds(int rowIndex) => rowIndex < 0 || rowIndex >= Rows;
+    private bool IsColumnOutOfBounds(int colIndex) => colIndex < 0 || colIndex >= Columns;
 }
