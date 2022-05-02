@@ -20,7 +20,7 @@ generated state.
 ## Pre-requisites
 ### VS Code Dev Container
 
-The recommended setup for most people is touse the VS Code dev container feature. That way required frameworks and extensions are installed automatically.
+The recommended setup for most people is to use the VS Code dev container feature. That way required frameworks and extensions are installed automatically.
 
 * [git](https://git-scm.com/downloads)
 * [VS Code](https://code.visualstudio.com/Download)
